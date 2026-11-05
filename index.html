@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Smart Tech Solutionz builds clean, responsive websites and practical web applications for businesses in Nigeria and worldwide.">
+<title>Smart Tech Solutionz — Websites that work for business</title>
+<style>
+:root {
+  --site-primary: #171717;
+  --site-secondary: #e9e9e7;
+  --site-background: #ffffff;
+  --site-on-primary: #ffffff;
+  --site-on-secondary: #171717;
+  --site-on-background: #171717;
+  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--site-font-body); background: #fff; color: #171717; }
+#app { min-height: 100vh; width: 100%; background-color: light-dark(var(--site-background), #101010); color: light-dark(var(--site-on-background), #f5f5f5); border-radius: 0; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+.container { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+.topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid light-dark(#e8e8e8,#303030); background: light-dark(rgba(255,255,255,.94),rgba(16,16,16,.94)); backdrop-filter: blur(14px); }
+.nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.045em; }
+.brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--site-primary); color: var(--site-on-primary); font-size: 14px; letter-spacing: -.06em; }
+.brand-name { font-size: 15px; }
+.navlinks { display: flex; align-items: center; gap: 28px; font-size: 13px; color: light-dark(#555,#bbb); }
+.navlinks a:hover { color: light-dark(#000,#fff); }
+.nav-cta, .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid var(--site-primary); border-radius: calc(7px * var(--site-radius-scale)); padding: 13px 19px; background: var(--site-primary); color: var(--site-on-primary); font-size: 13px; font-weight: 650; transition: transform .2s, background .2s; cursor: pointer; }
+.btn:hover, .nav-cta:hover { transform: translateY(-2px); }
+.btn.secondary { background: transparent; color: light-dark(#171717,#fff); border-color: light-dark(#d5d5d5,#484848); }
+.menu-toggle { display:none; border:1px solid light-dark(#ddd,#444); background:transparent; border-radius:7px; padding:9px 12px; color:inherit; }
+.hero { padding: 112px 0 94px; position:relative; overflow:hidden; }
+.hero:after { content:""; position:absolute; width:470px; height:470px; border-radius:50%; border:1px solid light-dark(#eee,#292929); right:-210px; top:-210px; opacity:var(--site-decoration-opacity); pointer-events:none; }
+.eyebrow { display:inline-flex; align-items:center; gap:9px; text-transform:uppercase; letter-spacing:.15em; font-size:10px; font-weight:750; color:light-dark(#666,#aaa); }
+.eyebrow:before { content:""; width:23px; height:1px; background:currentColor; }
+h1,h2,h3 { font-family:var(--site-font-heading); letter-spacing:-.055em; }
+h1 { max-width:850px; margin:25px 0 22px; font-size:clamp(46px,7.2vw,86px); line-height:.99; font-weight:720; }
+.hero h1 span { color:light-dark(#858585,#888); }
+.hero-copy { max-width:560px; font-size:17px; line-height:1.75; color:light-dark(#626262,#b8b8b8); }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:32px; }
+.hero-meta { display:flex; gap:30px; flex-wrap:wrap; margin-top:65px; padding-top:23px; border-top:1px solid light-dark(#e9e9e9,#333); color:light-dark(#666,#aaa); font-size:12px; }
+.hero-meta strong { color:light-dark(#171717,#fff); display:block; font-size:15px; margin-bottom:4px; }
+.section { padding:92px 0; border-top:1px solid light-dark(#ededed,#292929); }
+.section-head { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:42px; }
+.section-head h2 { font-size:clamp(34px,5vw,54px); line-height:1.04; margin:14px 0 0; max-width:600px; }
+.section-head p { max-width:360px; color:light-dark(#666,#aaa); line-height:1.7; font-size:14px; margin:0; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.service-card, .project-card, .price-card { border:1px solid light-dark(#e6e6e6,#333); border-radius:calc(12px * var(--site-radius-scale)); padding:25px; background:light-dark(#fff,#171717); }
+.service-number { color:light-dark(#999,#777); font-size:11px; letter-spacing:.12em; }
+.service-icon { width:42px; height:42px; display:grid; place-items:center; border:1px solid light-dark(#e5e5e5,#383838); border-radius:10px; margin:27px 0 20px; font-size:18px; }
+.service-card h3, .project-card h3 { font-size:21px; margin:0 0 10px; letter-spacing:-.04em; }
+.service-card p, .project-card p { color:light-dark(#666,#aaa); font-size:13px; line-height:1.7; margin:0; }
+.project-visual { min-height:190px; border-radius:8px; padding:18px; margin-bottom:22px; background:linear-gradient(135deg,#f7eaf0,#ead3df); color:#24151d; overflow:hidden; }
+.project-visual.dark { background:linear-gradient(135deg,#171717,#414141); color:#fff; }
+.project-visual.sand { background:linear-gradient(135deg,#eee9df,#d8d0c1); color:#28251f; }
+.mock-window { height:150px; border:1px solid rgba(0,0,0,.14); background:rgba(255,255,255,.7); border-radius:6px; padding:12px; display:flex; flex-direction:column; gap:10px; }
+.mock-bar { height:6px; width:36%; background:rgba(0,0,0,.18); border-radius:8px; }
+.mock-title { width:75%; height:17px; background:rgba(0,0,0,.65); border-radius:3px; margin-top:12px; }
+.mock-lines { width:52%; height:6px; background:rgba(0,0,0,.22); border-radius:4px; }
+.mock-blocks { display:flex; gap:8px; margin-top:auto; }
+.mock-blocks i { flex:1; height:38px; border-radius:4px; background:rgba(0,0,0,.12); }
+.project-tag { display:inline-block; margin-bottom:12px; font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:light-dark(#777,#aaa); }
+.project-link { display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:700; margin-top:19px; }
+.project-link:hover { text-decoration:underline; }
+.pricing { grid-template-columns:repeat(3,1fr); align-items:stretch; }
+.price-card.featured { background:var(--site-primary); color:var(--site-on-primary); border-color:var(--site-primary); }
+.price-label { font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.7; }
+.price { font-size:34px; letter-spacing:-.06em; font-weight:750; margin:20px 0 8px; }
+.price small { font-size:12px; letter-spacing:0; font-weight:500; opacity:.7; }
+.price-card p { font-size:13px; line-height:1.7; color:light-dark(#666,#aaa); }
+.price-card.featured p { color:#c9c9c9; }
+.price-card ul { padding:0; list-style:none; margin:23px 0 28px; }
+.price-card li { font-size:12px; padding:9px 0; border-bottom:1px solid light-dark(#eee,#333); }
+.price-card.featured li { border-color:#444; }
+.price-card .btn { width:100%; }
+.price-card.featured .btn { background:#fff; color:#171717; border-color:#fff; }
+.note { color:light-dark(#777,#aaa); font-size:11px; margin-top:18px; line-height:1.6; }
+.process { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+.step { border-top:1px solid light-dark(#ccc,#444); padding-top:17px; }
+.step b { font-size:11px; color:light-dark(#888,#aaa); }
+.step h3 { font-size:19px; margin:20px 0 9px; }
+.step p { font-size:12px; line-height:1.7; color:light-dark(#666,#aaa); }
+.about-layout { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.about-panel { min-height:300px; border-radius:12px; background:light-dark(#f1f1ef,#202020); display:flex; align-items:center; justify-content:center; padding:35px; }
+.about-monogram { font-size:clamp(65px,10vw,120px); font-weight:800; letter-spacing:-.1em; }
+.about-text h2 { font-size:clamp(34px,5vw,52px); line-height:1.05; margin:16px 0; }
+.about-text p { font-size:14px; line-height:1.85; color:light-dark(#666,#aaa); }
+.contact { background:light-dark(#f5f5f3,#191919); border-top:1px solid light-dark(#e8e8e8,#333); padding:90px 0; }
+.contact-layout { display:grid; grid-template-columns:.9fr 1.1fr; gap:60px; }
+.contact h2 { font-size:clamp(38px,5vw,58px); line-height:1.02; margin:17px 0; }
+.contact-intro { color:light-dark(#666,#aaa); line-height:1.75; font-size:14px; max-width:400px; }
+.contact-form { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+.field { display:flex; flex-direction:column; gap:7px; }
+.field.full { grid-column:1/-1; }
+.field label { font-size:11px; font-weight:650; }
+.field input,.field select,.field textarea { width:100%; border:1px solid light-dark(#ddd,#444); border-radius:7px; background:light-dark(#fff,#101010); color:inherit; padding:13px; outline:none; font-size:13px; }
+.field textarea { min-height:110px; resize:vertical; }
+.field input:focus,.field select:focus,.field textarea:focus { border-color:light-dark(#333,#aaa); }
+.form-status { grid-column:1/-1; color:light-dark(#555,#bbb); font-size:12px; line-height:1.6; min-height:18px; }
+footer { padding:26px 0; border-top:1px solid light-dark(#e4e4e4,#333); }
+.footer-row { display:flex; justify-content:space-between; gap:20px; align-items:center; color:light-dark(#777,#aaa); font-size:11px; }
+.footer-links { display:flex; gap:18px; }
+@media (max-width:850px) { .navlinks { gap:16px; } .grid,.pricing { grid-template-columns:repeat(2,1fr); } .process { grid-template-columns:repeat(2,1fr); } .section-head { align-items:start; flex-direction:column; } .about-layout,.contact-layout { grid-template-columns:1fr; gap:32px; } }
+@media (max-width:620px) { .container { width:min(100% - 34px,1160px); } .nav { min-height:66px; } .menu-toggle { display:block; } .navlinks { display:none; position:absolute; top:66px; left:0; right:0; padding:20px 22px; flex-direction:column; align-items:flex-start; background:light-dark(#fff,#111); border-bottom:1px solid light-dark(#ddd,#333); } .navlinks.open { display:flex; } .nav-cta { display:none; } .hero { padding:78px 0 65px; } .hero-copy { font-size:15px; } .hero-meta { gap:18px; margin-top:45px; } .section { padding:68px 0; } .grid,.pricing { grid-template-columns:1fr; } .process { grid-template-columns:1fr 1fr; gap:18px; } .service-card,.project-card,.price-card { padding:21px; } .contact { padding:68px 0; } .contact-form { grid-template-columns:1fr; } .field.full { grid-column:auto; } .form-status { grid-column:auto; } .footer-row { align-items:flex-start; flex-direction:column; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none !important; } }
+</style>
+</head>
+<body>
+<div id="app">
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#home" aria-label="Smart Tech Solutionz home"><span class="brand-mark">ST</span><span class="brand-name">SMART TECH SOLUTIONZ</span></a>
+    <nav class="navlinks" id="navlinks" aria-label="Main navigation">
+      <a href="#services">Services</a><a href="#work">Our work</a><a href="#pricing">Packages</a><a href="#about">About</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navlinks">Menu</button>
+  </div>
+</header>
+<main>
+<section class="hero" id="home">
+  <div class="container">
+    <div class="eyebrow">Digital solutions for ambitious businesses</div>
+    <h1>We build digital experiences <span>that move business forward.</span></h1>
+    <p class="hero-copy">Smart Tech Solutionz designs and develops clean, effective websites and web applications that help businesses look credible, reach more customers and work smarter.</p>
+    <div class="hero-actions"><a class="btn" href="#contact">Let's build something <span>↗</span></a><a class="btn secondary" href="#work">Explore our work <span>↓</span></a></div>
+    <div class="hero-meta"><div><strong>Web design</strong>Clear, responsive experiences</div><div><strong>Web development</strong>Built around your workflow</div><div><strong>Worldwide</strong>Working with clients remotely</div></div>
+  </div>
+</section>
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head"><div><div class="eyebrow">What we do</div><h2>Digital tools for real-world business needs.</h2></div><p>From a first online presence to a custom platform, we focus on useful features, thoughtful design and dependable delivery.</p></div>
+    <div class="grid">
+      <article class="service-card"><span class="service-number">01 / DESIGN</span><div class="service-icon">✳</div><h3>Business websites</h3><p>Professional, mobile-friendly websites that explain what you do, build trust and turn visitors into enquiries.</p></article>
+      <article class="service-card"><span class="service-number">02 / COMMERCE</span><div class="service-icon">↗</div><h3>Online stores</h3><p>Product catalogues, shopping carts, checkout flows and order management tailored to your business.</p></article>
+      <article class="service-card"><span class="service-number">03 / SYSTEMS</span><div class="service-icon">▦</div><h3>Web applications</h3><p>Booking systems, customer portals, dashboards and custom tools that simplify daily operations.</p></article>
+      <article class="service-card"><span class="service-number">04 / EXPERIENCE</span><div class="service-icon">⌘</div><h3>UI & UX design</h3><p>Simple, intuitive interfaces that make it easier for customers and teams to get things done.</p></article>
+      <article class="service-card"><span class="service-number">05 / SUPPORT</span><div class="service-icon">⟳</div><h3>Maintenance & updates</h3><p>Content updates, small improvements, troubleshooting and ongoing website care.</p></article>
+      <article class="service-card"><span class="service-number">06 / INTEGRATION</span><div class="service-icon">⌁</div><h3>Backend & integrations</h3><p>Database connections, authentication, forms and third-party service integrations where required.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-head"><div><div class="eyebrow">Selected work</div><h2>Thoughtful builds. Practical outcomes.</h2></div><p>A selection of work and concept directions. We clearly identify live demonstrations and concept projects.</p></div>
+    <div class="grid">
+      <article class="project-card"><div class="project-visual"><div class="mock-window"><div class="mock-bar"></div><div class="mock-title"></div><div class="mock-lines"></div><div class="mock-blocks"><i></i><i></i><i></i></div></div></div><span class="project-tag">Live project · Beauty</span><h3>Styled By Mira</h3><p>A salon website concept with service discovery, style gallery, customer booking flows and an owner management experience.</p><a class="project-link" href="https://anihdivinefavour-dev.github.io/Styled-by-Mira/" target="_blank" rel="noopener">View live demonstration ↗</a></article>
+      <article class="project-card"><div class="project-visual dark"><div class="mock-window"><div class="mock-bar"></div><div class="mock-title"></div><div class="mock-lines"></div><div class="mock-blocks"><i></i><i></i><i></i></div></div></div><span class="project-tag">Concept direction · Food</span><h3>Restaurant ordering</h3><p>A proposed ordering experience with menu browsing, order enquiries and a simple kitchen-side management dashboard.</p><span class="project-link">Concept project · Not yet deployed</span></article>
+      <article class="project-card"><div class="project-visual sand"><div class="mock-window"><div class="mock-bar"></div><div class="mock-title"></div><div class="mock-lines"></div><div class="mock-blocks"><i></i><i></i><i></i></div></div></div><span class="project-tag">Concept direction · Property</span><h3>Real estate listings</h3><p>A proposed property catalogue with listing details, image galleries, enquiry capture and agent management tools.</p><span class="project-link">Concept project · Not yet deployed</span></article>
+    </div>
+  </div>
+</section>
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head"><div><div class="eyebrow">Ways to work together</div><h2>Clear starting points. Custom scope.</h2></div><p>Every project is quoted after we understand your goals, content, integrations and delivery requirements.</p></div>
+    <div class="grid pricing">
+      <article class="price-card"><div class="price-label">Starter presence</div><div class="price">₦120k <small>from</small></div><p>For individuals and small businesses ready to establish a professional online presence.</p><ul><li>Responsive landing page</li><li>About, services and contact sections</li><li>Contact or enquiry form</li><li>Basic search-friendly structure</li></ul><a class="btn secondary" href="#contact" data-package="Starter website">Enquire about starter</a></article>
+      <article class="price-card featured"><div class="price-label">Business website</div><div class="price">₦250k <small>from</small></div><p>For growing businesses that need more pages, stronger content and useful customer features.</p><ul><li>Multi-page responsive website</li><li>Custom design and content layout</li><li>Enquiry or booking workflow</li><li>Basic CMS/backend scope discussion</li></ul><a class="btn" href="#contact" data-package="Business website">Discuss a project</a></article>
+      <article class="price-card"><div class="price-label">Custom application</div><div class="price">Let's scope <small>your build</small></div><p>For businesses that need a tailored platform, dashboard or workflow.</p><ul><li>Custom features and user roles</li><li>Database and authentication planning</li><li>Admin dashboard scope</li><li>Milestone-based delivery proposal</li></ul><a class="btn secondary" href="#contact" data-package="Custom web application">Scope my application</a></article>
+    </div>
+    <p class="note">Starting prices are indicative estimates in Nigerian naira, not fixed quotations. Hosting, domain registration, paid services, content production and major integrations may be priced separately. International projects are quoted in an agreed currency after scope review.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><div class="eyebrow">How we work</div><h2>A straightforward process, from idea to launch.</h2></div><p>You stay informed at every stage, with scope and deliverables agreed before development begins.</p></div>
+    <div class="process"><div class="step"><b>01 / DISCOVER</b><h3>Understand</h3><p>We learn about your business, audience, goals and the problem the website needs to solve.</p></div><div class="step"><b>02 / PLAN</b><h3>Define</h3><p>We agree on pages, features, content, timeline, budget and project milestones.</p></div><div class="step"><b>03 / BUILD</b><h3>Develop</h3><p>We design, develop and review the experience across desktop and mobile devices.</p></div><div class="step"><b>04 / LAUNCH</b><h3>Deliver</h3><p>After testing and approval, we support deployment and explain how to manage the finished site.</p></div></div>
+  </div>
+</section>
+<section class="section" id="about">
+  <div class="container about-layout"><div class="about-panel"><div class="about-monogram">ST.</div></div><div class="about-text"><div class="eyebrow">About Smart Tech Solutionz</div><h2>Technology should make business simpler.</h2><p>Smart Tech Solutionz is an independent web design and development brand focused on practical digital experiences for businesses and entrepreneurs.</p><p>We combine clean interface design with purposeful development: websites that communicate clearly, customer journeys that make sense and web tools built around the way a business works.</p><p>Based in Nigeria and open to remote projects worldwide.</p></div></div>
+</section>
+<section class="contact" id="contact">
+  <div class="container contact-layout">
+    <div><div class="eyebrow">Have a project in mind?</div><h2>Let's make your next idea work.</h2><p class="contact-intro">Tell us a little about your business and what you want to build. We'll prepare the next steps for a project conversation.</p><p class="note">For Nigerian and international enquiries. No commitment is required to submit a project brief.</p><p class="note"><strong>WhatsApp / Call:</strong> <a href="https://wa.me/2347040850661" target="_blank" rel="noopener">07040850661</a><br><strong>Email:</strong> <a href="mailto:anihdivinefavour@gmail.com">anihdivinefavour@gmail.com</a></p><a class="btn" href="https://wa.me/2347040850661?text=Hello%20Smart%20Tech%20Solutionz%2C%20I%20would%20like%20to%20discuss%20a%20website%20project." target="_blank" rel="noopener">Chat on WhatsApp ↗</a></div>
+    <form class="contact-form" id="projectForm">
+      <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Full name"></div>
+      <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+      <div class="field"><label for="business">Business / organisation</label><input id="business" name="business" placeholder="Business name"></div>
+      <div class="field"><label for="budget">Estimated budget</label><select id="budget" name="budget"><option value="Not sure yet">Not sure yet</option><option>Under ₦150,000</option><option>₦150,000–₦300,000</option><option>₦300,000–₦600,000</option><option>Above ₦600,000</option><option>International project / USD quote</option></select></div>
+      <div class="field full"><label for="type">What do you need?</label><select id="type" name="type"><option>Business website</option><option>Online store</option><option>Booking system</option><option>Web application / dashboard</option><option>Website redesign</option><option>Maintenance and support</option><option>Other</option></select></div>
+      <div class="field full"><label for="details">Tell us about your project</label><textarea id="details" name="details" required placeholder="What should the website or application help you achieve?"></textarea></div>
+      <div class="field full"><button class="btn" type="submit">Send enquiry on WhatsApp <span>↗</span></button></div>
+      <div class="form-status" id="formStatus" role="status" aria-live="polite">Your completed project brief will open in a WhatsApp chat with Smart Tech Solutionz. Review it and press Send in WhatsApp.</div>
+    </form>
+  </div>
+</section>
+</main>
+<footer><div class="container footer-row"><a class="brand" href="#home"><span class="brand-mark">ST</span><span class="brand-name">SMART TECH SOLUTIONZ</span></a><span>© <span id="year"></span> Smart Tech Solutionz. All rights reserved.</span><div class="footer-links"><a href="#services">Services</a><a href="#work">Work</a><a href="#contact">Contact</a></div></div></footer>
+</div>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const navlinks = document.getElementById('navlinks');
+menuToggle.addEventListener('click', () => {
+  const isOpen = navlinks.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+navlinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  navlinks.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+}));
+document.querySelectorAll('[data-package]').forEach(link => link.addEventListener('click', () => {
+  document.getElementById('type').value = link.dataset.package === 'Starter website' || link.dataset.package === 'Business website' ? 'Business website' : 'Web application / dashboard';
+}));
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('projectForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+  const message = [
+    'PROJECT ENQUIRY — SMART TECH SOLUTIONZ',
+    `Name: ${form.get('name')}`,
+    `Email: ${form.get('email')}`,
+    `Business: ${form.get('business') || 'Not provided'}`,
+    `Budget: ${form.get('budget')}`,
+    `Project type: ${form.get('type')}`,
+    `Project details: ${form.get('details')}`
+  ].join('\n');
+  const whatsappUrl = `https://wa.me/2347040850661?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank', 'noopener');
+  document.getElementById('formStatus').textContent = 'WhatsApp has been opened with your project brief. Review the message and press Send to submit your enquiry.';
+});
+</script>
+</body>
+</html>
