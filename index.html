@@ -248,6 +248,21 @@ document.getElementById('projectForm').addEventListener('submit', async event =>
   window.open(`https://wa.me/2347040850661?text=${encodeURIComponent(message)}`,'_blank','noopener');
   submit.disabled=false; submit.innerHTML='Send enquiry on WhatsApp <span>↗</span>';
 });
+
+async function loadPublishedPortfolio(){
+  const grid=document.querySelector('#work .grid');
+  if(!grid)return;
+  const {data,error}=await smartTechDb.from('portfolio').select('title,category,description,image_url,live_url,featured').eq('is_published',true).order('featured',{ascending:false}).order('created_at',{ascending:false});
+  if(error||!data||!data.length)return;
+  const safe=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const cards=data.map(item=>{
+    const image=item.image_url&&/^https:\/\//i.test(item.image_url)?'<img src="'+safe(item.image_url)+'" alt="'+safe(item.title)+'" style="width:100%;height:190px;object-fit:cover;border-radius:8px;margin-bottom:20px">':'<div class="project-visual dark"><div class="mock-window"><div class="mock-bar"></div><div class="mock-title"></div><div class="mock-lines"></div><div class="mock-blocks"><i></i><i></i><i></i></div></div></div>';
+    const link=item.live_url&&/^https:\/\//i.test(item.live_url)?'<a class="project-link" href="'+safe(item.live_url)+'" target="_blank" rel="noopener">View live demonstration ↗</a>':'<span class="project-link">Project details available on request</span>';
+    return '<article class="project-card">'+image+'<span class="project-tag">'+safe(item.category||'Selected work')+'</span><h3>'+safe(item.title)+'</h3><p>'+safe(item.description||'A Smart Tech Solutionz project.')+'</p>'+link+'</article>';
+  }).join('');
+  grid.insertAdjacentHTML('afterbegin',cards);
+}
+loadPublishedPortfolio();
 </script>
 </body>
 </html>
