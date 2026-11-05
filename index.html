@@ -241,13 +241,6 @@ document.getElementById('projectForm').addEventListener('submit', async event =>
   ].join('\\n');
   const whatsappWindow=window.open(`https://wa.me/2347040850661?text=${encodeURIComponent(message)}`,'_blank','noopener');
   const {error}=await smartTechDb.from('enquiries').insert(payload);
-  const message = [
-    'PROJECT ENQUIRY — SMART TECH SOLUTIONZ',
-    `Name: ${payload.name}`, `Email: ${payload.email}`,
-    `Business: ${payload.business_name || 'Not provided'}`,
-    `Budget: ${payload.budget}`, `Project type: ${payload.service}`,
-    `Project details: ${payload.details}`
-  ].join('\n');
   if(error){
     status.textContent='We could not save your enquiry to our system. You can still send it directly through WhatsApp.';
   } else {
