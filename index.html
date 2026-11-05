@@ -186,7 +186,7 @@ footer { padding:26px 0; border-top:1px solid light-dark(#e4e4e4,#333); }
     <form class="contact-form" id="projectForm">
       <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Full name"></div>
       <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
-      <div class="field"><label for="business">Business / organisation</label><input id="business" name="business" placeholder="Business name"></div>
+      <div class="field"><label for="business">Business / organisation</label><input id="business" name="business" placeholder="Business name"></div><div class="field"><label for="phone">Phone / WhatsApp (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+234…"></div>
       <div class="field"><label for="budget">Estimated budget</label><select id="budget" name="budget"><option value="Not sure yet">Not sure yet</option><option>Under ₦150,000</option><option>₦150,000–₦300,000</option><option>₦300,000–₦600,000</option><option>Above ₦600,000</option><option>International project / USD quote</option></select></div>
       <div class="field full"><label for="type">What do you need?</label><select id="type" name="type"><option>Business website</option><option>Online store</option><option>Booking system</option><option>Web application / dashboard</option><option>Website redesign</option><option>Maintenance and support</option><option>Other</option></select></div>
       <div class="field full"><label for="details">Tell us about your project</label><textarea id="details" name="details" required placeholder="What should the website or application help you achieve?"></textarea></div>
@@ -225,13 +225,21 @@ document.getElementById('projectForm').addEventListener('submit', async event =>
   const form = new FormData(event.currentTarget);
   const payload = {
     name:String(form.get('name')).trim(), email:String(form.get('email')).trim(),
-    phone:null, business_name:String(form.get('business')||'').trim()||null,
+    phone:String(form.get('phone')||'').trim()||null, business_name:String(form.get('business')||'').trim()||null,
     service:String(form.get('type')), budget:String(form.get('budget')),
     details:String(form.get('details')).trim(), status:'new'
   };
   const status=document.getElementById('formStatus');
   const submit=event.currentTarget.querySelector('button[type="submit"]');
   submit.disabled=true; submit.textContent='Submitting…';
+  const message = [
+    'PROJECT ENQUIRY — SMART TECH SOLUTIONZ',
+    `Name: ${payload.name}`, `Email: ${payload.email}`,
+    `Phone: ${payload.phone || 'Not provided'}`, `Business: ${payload.business_name || 'Not provided'}`,
+    `Budget: ${payload.budget}`, `Project type: ${payload.service}`,
+    `Project details: ${payload.details}`
+  ].join('\\n');
+  const whatsappWindow=window.open(`https://wa.me/2347040850661?text=${encodeURIComponent(message)}`,'_blank','noopener');
   const {error}=await smartTechDb.from('enquiries').insert(payload);
   const message = [
     'PROJECT ENQUIRY — SMART TECH SOLUTIONZ',
@@ -245,7 +253,7 @@ document.getElementById('projectForm').addEventListener('submit', async event =>
   } else {
     status.textContent='Your enquiry has been saved. Opening WhatsApp so you can also contact us directly.';
   }
-  window.open(`https://wa.me/2347040850661?text=${encodeURIComponent(message)}`,'_blank','noopener');
+  if(!whatsappWindow) status.textContent += ' If WhatsApp did not open, please use the WhatsApp contact link on this page.';
   submit.disabled=false; submit.innerHTML='Send enquiry on WhatsApp <span>↗</span>';
 });
 
