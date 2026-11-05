@@ -265,6 +265,15 @@ async function loadPublishedPortfolio(){
   grid.insertAdjacentHTML('afterbegin',cards);
 }
 loadPublishedPortfolio();
+async function loadPublicServices(){
+  const grid=document.querySelector('#services .grid');
+  if(!grid)return;
+  const {data,error}=await smartTechDb.from('services').select('title,description').eq('is_active',true).order('sort_order');
+  if(error||!data||!data.length)return;
+  const safe=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  grid.innerHTML=data.map((item,index)=>'<article class="service-card"><span class="service-number">'+String(index+1).padStart(2,'0')+' / SERVICE</span><div class="service-icon">✳</div><h3>'+safe(item.title)+'</h3><p>'+safe(item.description||'Contact us to discuss this service.')+'</p></article>').join('');
+}
+loadPublicServices();
 </script>
 </body>
 </html>
