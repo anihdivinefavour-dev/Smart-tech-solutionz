@@ -238,7 +238,7 @@ document.getElementById('projectForm').addEventListener('submit', async event =>
     `Phone: ${payload.phone || 'Not provided'}`, `Business: ${payload.business_name || 'Not provided'}`,
     `Budget: ${payload.budget}`, `Project type: ${payload.service}`,
     `Project details: ${payload.details}`
-  ].join('\\n');
+  ].join('\n');
   const whatsappWindow=window.open(`https://wa.me/2347040850661?text=${encodeURIComponent(message)}`,'_blank','noopener');
   const {error}=await smartTechDb.from('enquiries').insert(payload);
   if(error){
