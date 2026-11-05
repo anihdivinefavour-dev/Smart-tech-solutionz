@@ -220,6 +220,7 @@ const smartTechDb = window.supabase.createClient(SMARTTECH_SUPABASE_URL, SMARTTE
 const visitSession = sessionStorage.getItem('st_visit_session') || crypto.randomUUID();
 sessionStorage.setItem('st_visit_session', visitSession);
 smartTechDb.from('activity_events').insert({session_id:visitSession,page_path:location.pathname+location.hash,referrer:document.referrer||null}).then(()=>{});
+window.addEventListener('hashchange',()=>{smartTechDb.from('activity_events').insert({session_id:visitSession,page_path:location.pathname+location.hash,referrer:document.referrer||null}).then(()=>{});});
 document.getElementById('projectForm').addEventListener('submit', async event => {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
