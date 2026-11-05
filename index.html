@@ -198,6 +198,7 @@ footer { padding:26px 0; border-top:1px solid light-dark(#e4e4e4,#333); }
 </main>
 <footer><div class="container footer-row"><a class="brand" href="#home"><span class="brand-mark">ST</span><span class="brand-name">SMART TECH SOLUTIONZ</span></a><span>© <span id="year"></span> Smart Tech Solutionz. All rights reserved.</span><div class="footer-links"><a href="#services">Services</a><a href="#work">Work</a><a href="#contact">Contact</a></div></div></footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
 <script>
 const menuToggle = document.getElementById('menuToggle');
 const navlinks = document.getElementById('navlinks');
@@ -213,21 +214,39 @@ document.querySelectorAll('[data-package]').forEach(link => link.addEventListene
   document.getElementById('type').value = link.dataset.package === 'Starter website' || link.dataset.package === 'Business website' ? 'Business website' : 'Web application / dashboard';
 }));
 document.getElementById('year').textContent = new Date().getFullYear();
-document.getElementById('projectForm').addEventListener('submit', event => {
+const SMARTTECH_SUPABASE_URL = 'https://iwxsqgmehvjsvnizxixt.supabase.co';
+const SMARTTECH_SUPABASE_KEY = 'sb_publishable_YT4xuHvuP_DbEw23f82opg_D6rgAkwN';
+const smartTechDb = window.supabase.createClient(SMARTTECH_SUPABASE_URL, SMARTTECH_SUPABASE_KEY);
+const visitSession = sessionStorage.getItem('st_visit_session') || crypto.randomUUID();
+sessionStorage.setItem('st_visit_session', visitSession);
+smartTechDb.from('activity_events').insert({session_id:visitSession,page_path:location.pathname+location.hash,referrer:document.referrer||null}).then(()=>{});
+document.getElementById('projectForm').addEventListener('submit', async event => {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
+  const payload = {
+    name:String(form.get('name')).trim(), email:String(form.get('email')).trim(),
+    phone:null, business_name:String(form.get('business')||'').trim()||null,
+    service:String(form.get('type')), budget:String(form.get('budget')),
+    details:String(form.get('details')).trim(), status:'new'
+  };
+  const status=document.getElementById('formStatus');
+  const submit=event.currentTarget.querySelector('button[type="submit"]');
+  submit.disabled=true; submit.textContent='Submitting…';
+  const {error}=await smartTechDb.from('enquiries').insert(payload);
   const message = [
     'PROJECT ENQUIRY — SMART TECH SOLUTIONZ',
-    `Name: ${form.get('name')}`,
-    `Email: ${form.get('email')}`,
-    `Business: ${form.get('business') || 'Not provided'}`,
-    `Budget: ${form.get('budget')}`,
-    `Project type: ${form.get('type')}`,
-    `Project details: ${form.get('details')}`
+    `Name: ${payload.name}`, `Email: ${payload.email}`,
+    `Business: ${payload.business_name || 'Not provided'}`,
+    `Budget: ${payload.budget}`, `Project type: ${payload.service}`,
+    `Project details: ${payload.details}`
   ].join('\n');
-  const whatsappUrl = `https://wa.me/2347040850661?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_blank', 'noopener');
-  document.getElementById('formStatus').textContent = 'WhatsApp has been opened with your project brief. Review the message and press Send to submit your enquiry.';
+  if(error){
+    status.textContent='We could not save your enquiry to our system. You can still send it directly through WhatsApp.';
+  } else {
+    status.textContent='Your enquiry has been saved. Opening WhatsApp so you can also contact us directly.';
+  }
+  window.open(`https://wa.me/2347040850661?text=${encodeURIComponent(message)}`,'_blank','noopener');
+  submit.disabled=false; submit.innerHTML='Send enquiry on WhatsApp <span>↗</span>';
 });
 </script>
 </body>
