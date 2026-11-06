@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">Smart Tech Solutionz monogram</title><desc id="desc">Silver and electric blue STS monogram surrounded by a digital orbit on a black background.</desc>
+<defs><linearGradient id="silver" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#c9cdd3"/><stop offset="1" stop-color="#858b95"/></linearGradient><linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#24e1ff"/><stop offset=".52" stop-color="#087cf5"/><stop offset="1" stop-color="#1234b9"/></linearGradient></defs>
+<rect width="512" height="512" rx="88" fill="#05070b"/>
+<path d="M85 165C135 54 360 27 433 151" fill="none" stroke="url(#blue)" stroke-width="17" stroke-linecap="round"/><path d="M78 339C133 455 358 480 440 352" fill="none" stroke="url(#blue)" stroke-width="17" stroke-linecap="round"/>
+<path d="M147 199h-54l-29 47h126c23 0 31 33 4 39H90l-30 48h139c94 0 100-128 4-134H147z" fill="url(#silver)"/><path d="M190 184h146l-29 49h-45v151h-57V233h-45z" fill="url(#blue)"/><path d="M372 199h-40l-27 47h100c24 0 30 33 3 39h-83l-28 48h112c93 0 98-128 3-134h-40z" fill="url(#silver)"/>
+<g fill="url(#blue)"><rect x="396" y="91" width="29" height="29" rx="3"/><rect x="434" y="127" width="19" height="19" rx="2"/><rect x="382" y="132" width="17" height="17" rx="2"/></g></svg>
