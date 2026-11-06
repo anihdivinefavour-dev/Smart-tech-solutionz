@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="assets/smart-tech-mark.svg">
+<meta name="theme-color" content="#05070b">
 <meta name="description" content="Smart Tech Solutionz builds clean, responsive websites and practical web applications for businesses in Nigeria and worldwide.">
 <title>Smart Tech Solutionz — Websites that work for business</title>
 <style>
@@ -31,7 +33,7 @@ button, input, textarea, select { font: inherit; }
 .topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid light-dark(#e8e8e8,#303030); background: light-dark(rgba(255,255,255,.94),rgba(16,16,16,.94)); backdrop-filter: blur(14px); }
 .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.045em; }
-.brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--site-primary); color: var(--site-on-primary); font-size: 14px; letter-spacing: -.06em; }
+.brand-mark { width: 42px; height: 42px; display: block; flex: 0 0 42px; object-fit: cover; border-radius: 10px; background: #05070b; box-shadow: 0 0 0 1px rgba(18,124,245,.24), 0 4px 14px rgba(0,0,0,.12); }
 .brand-name { font-size: 15px; }
 .navlinks { display: flex; align-items: center; gap: 28px; font-size: 13px; color: light-dark(#555,#bbb); }
 .navlinks a:hover { color: light-dark(#000,#fff); }
@@ -119,7 +121,7 @@ footer { padding:26px 0; border-top:1px solid light-dark(#e4e4e4,#333); }
 <div id="app">
 <header class="topbar">
   <div class="container nav">
-    <a class="brand" href="#home" aria-label="Smart Tech Solutionz home"><span class="brand-mark">ST</span><span class="brand-name">SMART TECH SOLUTIONZ</span></a>
+    <a class="brand" href="#home" aria-label="Smart Tech Solutionz home"><img class="brand-mark" src="assets/smart-tech-mark.svg" alt="Smart Tech Solutionz logo"><span class="brand-name">SMART TECH SOLUTIONZ</span></a>
     <nav class="navlinks" id="navlinks" aria-label="Main navigation">
       <a href="#services">Services</a><a href="#work">Our work</a><a href="#pricing">Packages</a><a href="#about">About</a><a href="account/">Sign in</a>
     </nav>
